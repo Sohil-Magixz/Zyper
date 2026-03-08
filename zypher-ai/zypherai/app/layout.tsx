@@ -5,25 +5,27 @@ import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import "./globals.css"
 
-// Custom SVG Icons to avoid dependency installation issues
+// Custom SVG Icons
 const Icons = {
-  // ... your existing icons ...
   Command: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>,
   Inventory: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>,
   Fleet: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>,
   Trust: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
   Forecast: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
-  Logout: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
-  // 🔥 NEW ICONS:
   Heatmap: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>,
   Procurement: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>,
-  Simulation: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+  Simulation: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>,
+  Logout: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
+  // 🔥 NEW ICONS FOR MOBILE MENU 🔥
+  Menu: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>,
+  Close: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [supplierName, setSupplierName] = useState("")
   const [mounted, setMounted] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // State for hamburger menu
   const router = useRouter()
   const pathname = usePathname()
 
@@ -42,9 +44,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     }
   }, [pathname, router])
 
+  // Automatically close the mobile menu when the route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
+
   const handleLogout = () => {
     localStorage.clear()
     setIsLoggedIn(false)
+    setIsMobileMenuOpen(false)
     router.replace("/login")
   }
 
@@ -63,14 +71,47 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {children}
               </div>
             ) : (
-              <div className="flex h-screen overflow-hidden">
+              <div className="flex h-screen overflow-hidden bg-[#0b0f19]">
                 
-                {/* CYBER-SLATE SIDEBAR */}
-                <aside className="w-72 bg-[#05080f] text-slate-300 flex flex-col h-screen border-r border-white/5 relative z-40">
+                {/* 🔥 MOBILE TOP HEADER 🔥 */}
+                <div className="lg:hidden fixed top-0 left-0 w-full h-16 bg-[#05080f]/90 backdrop-blur-md border-b border-white/5 z-40 flex items-center justify-between px-6 shadow-md">
+                    <span className="text-xl font-black uppercase tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-500">
+                        ZYPHER
+                    </span>
+                    <button 
+                        onClick={() => setIsMobileMenuOpen(true)} 
+                        className="text-cyan-400 hover:text-cyan-300 transition-colors p-2 -mr-2"
+                    >
+                        {Icons.Menu}
+                    </button>
+                </div>
+
+                {/* 🔥 MOBILE OVERLAY BACKDROP 🔥 */}
+                {isMobileMenuOpen && (
+                    <div 
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    />
+                )}
+                
+                {/* CYBER-SLATE SIDEBAR (Responsive) */}
+                <aside className={`
+                    fixed lg:relative top-0 left-0 h-full z-50 w-72 bg-[#05080f] text-slate-300 flex flex-col border-r border-white/5 
+                    transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none
+                    ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+                `}>
                   <div className="absolute top-0 left-0 w-full h-40 bg-cyan-900/10 blur-[80px] pointer-events-none"></div>
                   
+                  {/* Mobile Close Button inside Sidebar */}
+                  <button 
+                      onClick={() => setIsMobileMenuOpen(false)} 
+                      className="absolute top-5 right-5 lg:hidden text-slate-500 hover:text-rose-400 transition-colors"
+                  >
+                      {Icons.Close}
+                  </button>
+
                   <div className="p-8 relative z-10 flex-1 overflow-y-auto no-scrollbar">
-                    <h1 className="text-3xl font-black tracking-tighter mb-12 text-center uppercase bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-500">
+                    <h1 className="text-3xl font-black tracking-tighter mb-12 text-center uppercase bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-500 mt-4 lg:mt-0">
                       ZYPHER
                     </h1>
                     
@@ -82,15 +123,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <nav className="flex flex-col space-y-2">
                       {[
                         { name: "Command Center", href: "/dashboard", icon: Icons.Command },
-    { name: "Inventory Matrix", href: "/inventory", icon: Icons.Inventory },
-    { name: "Fleet Satellites", href: "/shipments", icon: Icons.Fleet },
-    { name: "Partner Trust", href: "/suppliers", icon: Icons.Trust },
-    { name: "Prophet AI", href: "/forecast", icon: Icons.Forecast },
-    // 🔥 NEW ROUTES:
-    { name: "Demand Heatmap", href: "/heatmap", icon: Icons.Heatmap },
-    { name: "Auto-Procurement", href: "/procurement", icon: Icons.Procurement },
-    { name: "War Room Sim", href: "/simulation", icon: Icons.Simulation },
-  ].map((item) => {
+                        { name: "Inventory Matrix", href: "/inventory", icon: Icons.Inventory },
+                        { name: "Fleet Satellites", href: "/shipments", icon: Icons.Fleet },
+                        { name: "Partner Trust", href: "/suppliers", icon: Icons.Trust },
+                        { name: "Prophet AI", href: "/forecast", icon: Icons.Forecast },
+                        { name: "Demand Heatmap", href: "/heatmap", icon: Icons.Heatmap },
+                        { name: "Auto-Procurement", href: "/procurement", icon: Icons.Procurement },
+                        { name: "War Room Sim", href: "/simulation", icon: Icons.Simulation },
+                      ].map((item) => {
                         const isActive = pathname === item.href;
                         return (
                           <Link
@@ -115,16 +155,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <span className="text-[9px] text-slate-600 font-black uppercase tracking-widest">Built by</span>
                         <span className="text-[10px] text-slate-300 font-black uppercase tracking-widest">RoarX</span>
                     </div>
-                    <button onClick={handleLogout} className="w-full flex items-center justify-center gap-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 p-3 rounded-xl transition-all duration-300 font-bold text-xs border border-rose-500/10 group">
+                    <button onClick={handleLogout} className="w-full flex items-center justify-center gap-3 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 p-3 rounded-xl transition-all duration-300 font-bold text-xs border border-rose-500/10 group active:scale-95">
                       <span className="text-rose-500/70 group-hover:text-rose-400">{Icons.Logout}</span> Terminate Session
                     </button>
                   </div>
                 </aside>
                 
                 {/* MAIN CONTENT AREA */}
-                <main className="flex-1 overflow-y-auto bg-[#0b0f19] relative">
+                {/* Added pt-20 on mobile to push content below the new fixed header */}
+                <main className="flex-1 overflow-y-auto bg-[#0b0f19] relative pt-20 lg:pt-0">
                     <div className="absolute top-0 left-1/4 w-1/2 h-64 bg-cyan-900/10 blur-[120px] pointer-events-none rounded-full"></div>
-                    <div className="p-8 lg:p-12 max-w-(--突破-7xl) mx-auto min-h-full relative z-10">
+                    <div className="p-4 sm:p-8 lg:p-12 max-w-(--突破-7xl) mx-auto min-h-full relative z-10">
                       {children}
                     </div>
                 </main>

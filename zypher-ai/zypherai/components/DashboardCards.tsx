@@ -47,17 +47,18 @@ export default function DashboardCards() {
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+    // Responsive Grid: 1 col (mobile), 2/3 cols (tablet), 5 cols (desktop)
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6">
       {cards.map((m, i) => (
-        <div key={m.title} className={`p-6 rounded-[1.5rem] border ${m.border} bg-[#0f1423] shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group cursor-default`}>
+        <div key={m.title} className={`p-5 lg:p-6 rounded-[1.5rem] border ${m.border} bg-[#0f1423] shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group cursor-default`}>
           <div className={`absolute -right-4 -top-4 w-24 h-24 ${m.bg} rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700`}></div>
-          <div className="relative z-10 flex flex-col h-full justify-between">
-            <div className="flex justify-between items-start mb-6">
+          <div className="relative z-10 flex flex-col h-full justify-between gap-4">
+            <div className="flex justify-between items-start">
                 <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.15em] w-2/3 leading-relaxed">{m.title}</p>
                 <div className={`${m.color} opacity-80 group-hover:opacity-100 transition-opacity`}>{m.icon}</div>
             </div>
             <div>
-                <h2 className="text-4xl font-light text-white tracking-tight mb-1">{m.value}</h2>
+                <h2 className="text-3xl lg:text-4xl font-light text-white tracking-tight mb-1">{m.value}</h2>
                 <p className="text-slate-500 text-xs font-medium">{m.subtitle}</p>
             </div>
           </div>

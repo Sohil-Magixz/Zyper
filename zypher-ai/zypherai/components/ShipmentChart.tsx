@@ -50,31 +50,32 @@ export default function ShipmentChart() {
   }
 
   return (
-    // 🔥 THE FIX: Explicit h-[500px] to strictly match the Map container height
-    <div className="bg-[#0f1423] p-8 rounded-[2.5rem] border border-cyan-500/10 h-[500px] flex flex-col relative overflow-hidden shadow-2xl">
+    <div className="bg-[#0f1423] p-6 lg:p-8 rounded-[2.5rem] border border-cyan-500/10 min-h-[400px] lg:h-[500px] flex flex-col relative overflow-hidden shadow-2xl w-full">
       <div className="absolute -top-24 -left-24 w-48 h-48 bg-indigo-500/10 blur-[80px] pointer-events-none rounded-full"></div>
       
       <div className="flex items-center gap-3 mb-6 relative z-10">
         {ChartIcon}
         <div>
-            <h2 className="text-xl font-light text-slate-100 tracking-wide">Network Load</h2>
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Live Asset Allocation</p>
+            <h2 className="text-lg lg:text-xl font-light text-slate-100 tracking-wide">Network Load</h2>
+            <p className="text-[9px] lg:text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Live Asset Allocation</p>
         </div>
       </div>
       
-      {/* 🔥 THE FIX: Strict style height injected into Recharts container to stop the "width -1" error */}
-      <div style={{ width: '100%', height: '350px' }} className="relative z-10">
-        <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-            <Pie data={data} innerRadius={80} outerRadius={110} paddingAngle={8} dataKey="value" stroke="none">
-            {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} style={{ filter: `drop-shadow(0px 0px 12px ${COLORS[index % COLORS.length]}60)` }} />
-            ))}
-            </Pie>
-            <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#05080f', borderRadius: '16px', border: '1px solid #1e293b', color: '#f8fafc', fontWeight: 'bold', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.5)' }} itemStyle={{ color: '#e2e8f0', fontSize: '14px' }} />
-            <Legend verticalAlign="bottom" height={40} iconType="circle" wrapperStyle={{ fontSize: '11px', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }} />
-        </PieChart>
-        </ResponsiveContainer>
+      {/* Responsive Wrapper for the Chart */}
+      <div className="flex-1 relative w-full mt-4 min-h-[250px]">
+        <div className="absolute inset-0">
+            <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+                <Pie data={data} innerRadius={60} outerRadius={90} paddingAngle={8} dataKey="value" stroke="none">
+                {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} style={{ filter: `drop-shadow(0px 0px 12px ${COLORS[index % COLORS.length]}60)` }} />
+                ))}
+                </Pie>
+                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#05080f', borderRadius: '16px', border: '1px solid #1e293b', color: '#f8fafc', fontWeight: 'bold', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.5)' }} itemStyle={{ color: '#e2e8f0', fontSize: '14px' }} />
+                <Legend verticalAlign="bottom" height={40} iconType="circle" wrapperStyle={{ fontSize: '10px', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', paddingTop: '20px' }} />
+            </PieChart>
+            </ResponsiveContainer>
+        </div>
       </div>
     </div>
   )
